@@ -3,14 +3,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { map } from "lodash";
 import routes from "./routes";
 
-console.log(routes);
-
 export function Navigation() {
   return (
     <BrowserRouter>
       <Routes>
-        {map(routes, ({ path, element }, index) => (
-          <Route key={index} path={path} element={element} />
+        {map(routes, (route, index) => (
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            element={
+              <route.layout>
+                <route.component />
+              </route.layout>
+            }
+          />
         ))}
       </Routes>
     </BrowserRouter>
